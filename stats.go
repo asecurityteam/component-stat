@@ -24,7 +24,8 @@ const (
 )
 
 var (
-	defaultDDTags = []string{}
+	defaultDDTags   = []string{}
+	defaultDDPrefix = ""
 )
 
 // NullConfig is empty. There are no options for NULL.
@@ -54,6 +55,7 @@ type DatadogConfig struct {
 	Address       string        `description:"Listener address to use when sending metrics."`
 	FlushInterval time.Duration `description:"Frequencing of sending metrics to listener."`
 	Tags          []string      `description:"Any static tags for all metrics."`
+	Prefix        string        `description:"A prefix added to the metric name."`
 	PacketSize    int           `description:"Max packet size to send."`
 }
 
@@ -72,6 +74,7 @@ func (*DatadogComponent) Settings() *DatadogConfig {
 		Address:       defaultDDAddr,
 		FlushInterval: defaultDDFlush,
 		Tags:          defaultDDTags,
+		Prefix:        defaultDDPrefix,
 		PacketSize:    defaultDDPacketSize,
 	}
 }
@@ -82,7 +85,11 @@ func (*DatadogComponent) New(_ context.Context, conf *DatadogConfig) (Stat, erro
 	if err != nil {
 		return nil, err
 	}
-	stater := xstats.New(dogstatsd.NewMaxPacket(writer, conf.FlushInterval, conf.PacketSize))
+	statSender := dogstatsd.NewMaxPacket(writer, conf.FlushInterval, conf.PacketSize)
+	if len(conf.Prefix) > 0 {
+		xstats.NewPrefix(statSender, conf.Prefix)
+	}
+	stater := xstats.New(statSender)
 	if len(conf.Tags) > 0 {
 		stater.AddTags(conf.Tags...)
 	}

@@ -63,3 +63,17 @@ func TestComponent(t *testing.T) {
 	_, err = New(context.Background(), src)
 	require.NotNil(t, err)
 }
+
+func TestDatadogPrefixConfig(t *testing.T) {
+	src := settings.NewMapSource(map[string]interface{}{
+		"stats": map[string]interface{}{
+			"output": "DATADOG",
+			"datadog": map[string]interface{}{
+				"prefix": "secdev",
+			},
+		},
+	})
+	tr, err := New(context.Background(), src)
+	require.Nil(t, err)
+	require.NotNil(t, tr)
+}
