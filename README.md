@@ -1,6 +1,6 @@
 <a id="markdown-component-stat---settings-component-for-generating-a-metrics-client" name="component-stat---settings-component-for-generating-a-metrics-client"></a>
 # component-stat - Settings component for generating a metrics client
-
+[![GoDoc](https://godoc.org/github.com/asecurityteam/component-stat?status.svg)](https://godoc.org/github.com/asecurityteam/component-stat)
 <!-- TOC -->
 
 - [component-stat - Settings component for generating a metrics client](#component-stat---settings-component-for-generating-a-metrics-client)
