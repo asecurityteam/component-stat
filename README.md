@@ -1,6 +1,9 @@
 <a id="markdown-component-stat---settings-component-for-generating-a-metrics-client" name="component-stat---settings-component-for-generating-a-metrics-client"></a>
 # component-stat - Settings component for generating a metrics client
 [![GoDoc](https://godoc.org/github.com/asecurityteam/component-stat?status.svg)](https://godoc.org/github.com/asecurityteam/component-stat)
+[![Build Status](https://travis-ci.com/asecurityteam/component-stat.png?branch=master)](https://travis-ci.com/asecurityteam/component-stat)
+[![codecov.io](https://codecov.io/github/asecurityteam/component-stat/coverage.svg?branch=master)](https://codecov.io/github/asecurityteam/component-stat?branch=master)
+
 <!-- TOC -->
 
 - [component-stat - Settings component for generating a metrics client](#component-stat---settings-component-for-generating-a-metrics-client)
