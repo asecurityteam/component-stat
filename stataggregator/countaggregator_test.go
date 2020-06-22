@@ -6,6 +6,7 @@ import (
 	"time"
 
 	gomock "github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCountAggregator(t *testing.T) {
@@ -88,4 +89,58 @@ func TestCountAggregator(t *testing.T) {
 		})
 
 	}
+}
+func TestGauge(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockStater := NewMockStat(ctrl)
+	stater := CountAggregator{
+		Stater: mockStater,
+	}
+	mockStater.EXPECT().Gauge("yakitori", float64(1), []string{"book"})
+	stater.Gauge("yakitori", 1, "book")
+}
+
+func TestHistogram(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockStater := NewMockStat(ctrl)
+	stater := CountAggregator{
+		Stater: mockStater,
+	}
+	mockStater.EXPECT().Histogram("yakitori", float64(1), []string{"book"})
+	stater.Histogram("yakitori", 1, "book")
+}
+func TestTiming(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockStater := NewMockStat(ctrl)
+	stater := CountAggregator{
+		Stater: mockStater,
+	}
+	mockStater.EXPECT().Timing("yakitori", 1*time.Millisecond, []string{"book"})
+	stater.Timing("yakitori", 1*time.Millisecond, "book")
+}
+
+func TestAddTags(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockStater := NewMockStat(ctrl)
+	stater := CountAggregator{
+		Stater: mockStater,
+	}
+	mockStater.EXPECT().AddTags([]string{"tag1", "tag2"})
+	stater.AddTags("tag1", "tag2")
+}
+
+func TestGetTags(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	mockStater := NewMockStat(ctrl)
+	stater := CountAggregator{
+		Stater: mockStater,
+	}
+	mockStater.EXPECT().GetTags().Return([]string{"tag1", "tag2"})
+	tags := stater.GetTags()
+	assert.Equal(t, []string{"tag1", "tag2"}, tags)
 }
