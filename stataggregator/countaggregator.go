@@ -9,7 +9,8 @@ import (
 	"github.com/rs/xstats"
 )
 
-// CountAggregator
+// CountAggregator is a wrapper around xstats.XStater, that aggregates
+// Count metrics on a time interval before sending them through Stater
 type CountAggregator struct {
 	Stater        xstats.XStater
 	Bucket        map[StatTagKey]float64
@@ -19,19 +20,22 @@ type CountAggregator struct {
 }
 
 // StatTagKey is a struct that represents a composite key
-// for storing aggregate
+// for storing aggregated stats
 type StatTagKey struct {
 	StatKey string
 	TagsKey string
 }
 
+// insertStat inserts an incoming stat to Bucket, the container of aggregated data.
 func (ca *CountAggregator) insertStat(stat string, count float64, tags ...string) {
+	// sort tags, as we use a concatenation of strings as a key
 	sort.Strings(tags)
 	tagsKey := strings.Join(tags[:], " ")
 	compositeKey := StatTagKey{
 		StatKey: stat,
 		TagsKey: tagsKey,
 	}
+	// provide mutual exclusion around the Bucket
 	ca.lock.Lock()
 	defer ca.lock.Unlock()
 	if currentCount, ok := ca.Bucket[compositeKey]; ok {
@@ -42,18 +46,23 @@ func (ca *CountAggregator) insertStat(stat string, count float64, tags ...string
 	return
 }
 
+// clearBucket wipes the Bucket of all aggregated data
 func (ca *CountAggregator) clearBucket() {
 	for key := range ca.Bucket {
 		delete(ca.Bucket, key)
 	}
 }
 
+// retrieveAndConvertStat takes in a composite key, retrieves the associated aggregated stat, and
+// converts it back to a consumable stat for xstats.XStater
 func (ca *CountAggregator) retrieveAndConvertStat(compositeKey StatTagKey) (string, float64, []string) {
 	aggregateCount := ca.Bucket[compositeKey]
 	tags := strings.Split(compositeKey.TagsKey, " ")
 	stat := compositeKey.StatKey
 	return stat, aggregateCount, tags
 }
+
+// flush calls xstats.XStater.Count on all aggregated stats, and proceeds to wipe the Bucket
 func (ca *CountAggregator) flush() {
 	time.Sleep(ca.FlushInterval)
 	ca.lock.Lock()
@@ -66,7 +75,9 @@ func (ca *CountAggregator) flush() {
 	<-ca.flushJob
 }
 
-// Count implements XStater interface
+// Count implements XStater interface. This Count in particular
+// inserts a stat, then proceeds to try to flush the Bucket. If there exists a
+// flush in progress, we proceed overflow on the channel/return
 func (ca *CountAggregator) Count(stat string, count float64, tags ...string) {
 	ca.insertStat(stat, count, tags...)
 
