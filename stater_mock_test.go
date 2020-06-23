@@ -2,7 +2,7 @@
 // Source: bitbucket.org/asecurityteam/vb2-report-worker/pkg/domain (interfaces: Stat)
 
 // Package v1 is a generated GoMock package.
-package stataggregator
+package stat
 
 import (
 	reflect "reflect"

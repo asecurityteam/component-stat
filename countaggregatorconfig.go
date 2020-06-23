@@ -1,18 +1,17 @@
-package stataggregator
+package stat
 
 import (
 	"context"
 	"sync"
 	"time"
 
-	stat "github.com/asecurityteam/component-stat"
 	"github.com/rs/xstats"
 )
 
 // CountAggregatorConfig is the configuration for a CountAggregator.
 type CountAggregatorConfig struct {
 	FlushInterval time.Duration `description:"Frequency of when to send aggregated metrics."`
-	StatConfig    *stat.DatadogConfig
+	StatConfig    *DatadogConfig
 }
 
 // Name of the configuration as it might appear in config files.
@@ -23,7 +22,7 @@ func (*CountAggregatorConfig) Name() string {
 // CountAggregatorComponent implements the settings.Component interface for
 // a countaggregator.
 type CountAggregatorComponent struct {
-	StatComponent *stat.DatadogComponent
+	StatComponent *DatadogComponent
 }
 
 // Settings generates a config with default values applied.

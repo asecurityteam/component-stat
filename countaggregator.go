@@ -1,4 +1,4 @@
-package stataggregator
+package stat
 
 import (
 	"sort"

@@ -1,11 +1,10 @@
-package stataggregator
+package stat
 
 import (
 	"context"
 	"testing"
 	"time"
 
-	stat "github.com/asecurityteam/component-stat"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,7 +20,7 @@ func TestComponentDefaultConfig(t *testing.T) {
 }
 
 func TestNewWithValues(t *testing.T) {
-	statComponent := &stat.DatadogComponent{}
+	statComponent := &DatadogComponent{}
 	component := &CountAggregatorComponent{StatComponent: statComponent}
 	config := component.Settings()
 	_, err := component.New(context.Background(), config)
