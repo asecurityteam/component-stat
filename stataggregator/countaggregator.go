@@ -39,11 +39,9 @@ func (ca *CountAggregator) insertStat(stat string, count float64, tags ...string
 	ca.lock.Lock()
 	defer ca.lock.Unlock()
 	if currentCount, ok := ca.Bucket[compositeKey]; ok {
-		ca.Bucket[compositeKey] = currentCount + count
-		return
+		count = currentCount + count
 	}
 	ca.Bucket[compositeKey] = count
-	return
 }
 
 // clearBucket wipes the Bucket of all aggregated data, to be used on flush
