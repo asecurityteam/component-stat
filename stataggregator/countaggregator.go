@@ -46,7 +46,7 @@ func (ca *CountAggregator) insertStat(stat string, count float64, tags ...string
 	return
 }
 
-// clearBucket wipes the Bucket of all aggregated data
+// clearBucket wipes the Bucket of all aggregated data, to be used on flush
 func (ca *CountAggregator) clearBucket() {
 	for key := range ca.Bucket {
 		delete(ca.Bucket, key)
@@ -77,7 +77,7 @@ func (ca *CountAggregator) flush() {
 
 // Count implements XStater interface. This Count in particular
 // inserts a stat, then proceeds to try to flush the Bucket. If there exists a
-// flush in progress, we proceed overflow on the channel/return
+// flush in progress, we proceed to overflow on the channel and return by default
 func (ca *CountAggregator) Count(stat string, count float64, tags ...string) {
 	ca.insertStat(stat, count, tags...)
 

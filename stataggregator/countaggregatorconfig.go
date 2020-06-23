@@ -2,7 +2,6 @@ package stataggregator
 
 import (
 	"context"
-	"fmt"
 	"sync"
 	"time"
 
@@ -10,9 +9,9 @@ import (
 	"github.com/rs/xstats"
 )
 
-// CountAggregatorConfig is for configuration a CountAggregator.
+// CountAggregatorConfig is the configuration for a CountAggregator.
 type CountAggregatorConfig struct {
-	FlushInterval time.Duration `description:"Frequencing of aggregating metrics before sending."`
+	FlushInterval time.Duration `description:"Frequency of when to send aggregated metrics."`
 	StatConfig    *stat.DatadogConfig
 }
 
@@ -40,7 +39,7 @@ func (c *CountAggregatorComponent) New(ctx context.Context, conf *CountAggregato
 
 	stater, err := c.StatComponent.New(ctx, conf.StatConfig)
 	if err != nil {
-		return nil, fmt.Errorf("bad stat config")
+		return nil, err
 	}
 	countAggregator := CountAggregator{
 		Stater:        stater,

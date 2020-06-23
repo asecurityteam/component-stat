@@ -20,19 +20,19 @@ func TestCountAggregator(t *testing.T) {
 		{
 			name: "simple aggregation",
 			ExecuteStatting: func(stater CountAggregator, mockStater *MockStat) {
-				mockStater.EXPECT().Count("stat", float64(15), []string{"scoob"})
-				go stater.Count("stat", 9, "scoob")
-				go stater.Count("stat", 6, "scoob")
+				mockStater.EXPECT().Count("stat1", float64(15), []string{"tag1"})
+				go stater.Count("stat1", 9, "tag1")
+				go stater.Count("stat1", 6, "tag1")
 				time.Sleep(200 * time.Millisecond)
 			},
 		},
 		{
 			name: "tag ordering aggregation",
 			ExecuteStatting: func(stater CountAggregator, mockStater *MockStat) {
-				mockStater.EXPECT().Count("triple", float64(10), []string{"double", "single"})
+				mockStater.EXPECT().Count("stat1", float64(10), []string{"aTag", "bTab"})
 				go func() {
-					stater.Count("triple", 9, "double", "single")
-					stater.Count("triple", 1, "single", "double")
+					stater.Count("stat1", 9, "aTag", "bTab")
+					stater.Count("stat1", 1, "bTab", "aTag")
 				}()
 				time.Sleep(200 * time.Millisecond)
 			},
@@ -40,13 +40,13 @@ func TestCountAggregator(t *testing.T) {
 		{
 			name: "complex stat aggregation",
 			ExecuteStatting: func(stater CountAggregator, mockStater *MockStat) {
-				mockStater.EXPECT().Count("stat", float64(15), []string{"scoob"})
-				mockStater.EXPECT().Count("yakitori", float64(4), []string{"book"})
+				mockStater.EXPECT().Count("stat1", float64(15), []string{"tag1"})
+				mockStater.EXPECT().Count("stat2", float64(4), []string{"tag2"})
 				go func() {
-					stater.Count("stat", 9, "scoob")
-					stater.Count("yakitori", 3, "book")
-					stater.Count("stat", 6, "scoob")
-					stater.Count("yakitori", 1, "book")
+					stater.Count("stat1", 9, "tag1")
+					stater.Count("stat2", 3, "tag2")
+					stater.Count("stat1", 6, "tag1")
+					stater.Count("stat2", 1, "tag2")
 				}()
 				time.Sleep(200 * time.Millisecond)
 			},
@@ -54,22 +54,22 @@ func TestCountAggregator(t *testing.T) {
 		{
 			name: "multiple stat aggregation",
 			ExecuteStatting: func(stater CountAggregator, mockStater *MockStat) {
-				mockStater.EXPECT().Count("stat", float64(15), []string{"scoob"})
-				mockStater.EXPECT().Count("yakitori", float64(4), []string{"book"})
+				mockStater.EXPECT().Count("stat1", float64(15), []string{"tag1"})
+				mockStater.EXPECT().Count("stat2", float64(4), []string{"tag2"})
 				go func() {
-					stater.Count("stat", 9, "scoob")
-					stater.Count("yakitori", 3, "book")
-					stater.Count("stat", 6, "scoob")
-					stater.Count("yakitori", 1, "book")
+					stater.Count("stat1", 9, "tag1")
+					stater.Count("stat2", 3, "tag2")
+					stater.Count("stat1", 6, "tag1")
+					stater.Count("stat2", 1, "tag2")
 				}()
 				time.Sleep(200 * time.Millisecond)
-				mockStater.EXPECT().Count("stat", float64(2), []string{"scoob"})
-				mockStater.EXPECT().Count("yakitori", float64(2), []string{"book"})
+				mockStater.EXPECT().Count("stat1", float64(2), []string{"tag1"})
+				mockStater.EXPECT().Count("stat2", float64(2), []string{"tag2"})
 				go func() {
-					stater.Count("stat", 1, "scoob")
-					stater.Count("yakitori", 1, "book")
-					stater.Count("stat", 1, "scoob")
-					stater.Count("yakitori", 1, "book")
+					stater.Count("stat1", 1, "tag1")
+					stater.Count("stat2", 1, "tag2")
+					stater.Count("stat1", 1, "tag1")
+					stater.Count("stat2", 1, "tag2")
 				}()
 				time.Sleep(200 * time.Millisecond)
 			},
@@ -97,8 +97,8 @@ func TestGauge(t *testing.T) {
 	stater := CountAggregator{
 		Stater: mockStater,
 	}
-	mockStater.EXPECT().Gauge("yakitori", float64(1), []string{"book"})
-	stater.Gauge("yakitori", 1, "book")
+	mockStater.EXPECT().Gauge("stat", float64(1), []string{"tag"})
+	stater.Gauge("stat", 1, "tag")
 }
 
 func TestHistogram(t *testing.T) {
@@ -108,8 +108,8 @@ func TestHistogram(t *testing.T) {
 	stater := CountAggregator{
 		Stater: mockStater,
 	}
-	mockStater.EXPECT().Histogram("yakitori", float64(1), []string{"book"})
-	stater.Histogram("yakitori", 1, "book")
+	mockStater.EXPECT().Histogram("stat", float64(1), []string{"tag"})
+	stater.Histogram("stat", 1, "tag")
 }
 func TestTiming(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -118,8 +118,8 @@ func TestTiming(t *testing.T) {
 	stater := CountAggregator{
 		Stater: mockStater,
 	}
-	mockStater.EXPECT().Timing("yakitori", 1*time.Millisecond, []string{"book"})
-	stater.Timing("yakitori", 1*time.Millisecond, "book")
+	mockStater.EXPECT().Timing("stat", 1*time.Millisecond, []string{"tag"})
+	stater.Timing("stat", 1*time.Millisecond, "tag")
 }
 
 func TestAddTags(t *testing.T) {
