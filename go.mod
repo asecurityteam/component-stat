@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/asecurityteam/settings v0.4.0
-	github.com/golang/mock v1.4.3
+	github.com/golang/mock v1.4.4
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/rs/cors v1.7.0 // indirect
 	github.com/rs/xhandler v0.0.0-20151224012956-d9d9599b6aaf // indirect
