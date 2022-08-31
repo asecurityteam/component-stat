@@ -1,6 +1,6 @@
 module github.com/asecurityteam/component-stat
 
-go 1.12
+go 1.19
 
 require (
 	github.com/asecurityteam/settings v0.6.0
