@@ -9,5 +9,5 @@ require (
 	github.com/rs/xhandler v0.0.0-20151224012956-d9d9599b6aaf // indirect
 	github.com/rs/xstats v0.0.0-20170813190920-c67367528e16
 	github.com/sergi/go-diff v1.1.0 // indirect
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.2
 )
