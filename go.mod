@@ -17,6 +17,6 @@ require (
 	github.com/rs/xhandler v0.0.0-20151224012956-d9d9599b6aaf // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
-	golang.org/x/net v0.0.0-20190620200207-3b0461eec859 // indirect
+	golang.org/x/net v0.23.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
