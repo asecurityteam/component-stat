@@ -1,23 +1,10 @@
-<a id="markdown-component-stat---settings-component-for-generating-a-metrics-client" name="component-stat---settings-component-for-generating-a-metrics-client"></a>
 # component-stat - Settings component for generating a metrics client
 [![GoDoc](https://godoc.org/github.com/asecurityteam/component-stat?status.svg)](https://godoc.org/github.com/asecurityteam/component-stat)
 [![Build Status](https://travis-ci.com/asecurityteam/component-stat.png?branch=master)](https://travis-ci.com/asecurityteam/component-stat)
 [![codecov.io](https://codecov.io/github/asecurityteam/component-stat/coverage.svg?branch=master)](https://codecov.io/github/asecurityteam/component-stat?branch=master)
 
-<!-- TOC -->
+<!-- TOC -->autoauto- [component-stat - Settings component for generating a metrics client](#component-stat---settings-component-for-generating-a-metrics-client)auto    - [Overview](#overview)auto    - [Quick Start](#quick-start)auto    - [Status](#status)auto    - [Contributing](#contributing)auto        - [Building And Testing](#building-and-testing)auto        - [License](#license)auto        - [Contributing Agreement](#contributing-agreement)autoauto<!-- /TOC -->
 
-- [component-stat - Settings component for generating a metrics client](#component-stat---settings-component-for-generating-a-metrics-client)
-    - [Overview](#overview)
-    - [Quick Start](#quick-start)
-    - [Status](#status)
-    - [Contributing](#contributing)
-        - [Building And Testing](#building-and-testing)
-        - [License](#license)
-        - [Contributing Agreement](#contributing-agreement)
-
-<!-- /TOC -->
-
-<a id="markdown-overview" name="overview"></a>
 ## Overview
 
 This is a [`settings`](https://github.com/asecurityteam/settings) that enables
@@ -25,7 +12,6 @@ constructing a metrics client. The resulting client is powered by
 [`xstats`](https://github.com/rs/xstats) and can output to a variety of metrics
 collecting systems.
 
-<a id="markdown-quick-start" name="quick-start"></a>
 ## Quick Start
 
 ```golang
@@ -35,7 +21,7 @@ import (
     "context"
 
     stat "github.com/asecurityteam/component-stat"
-    "github.com/asecurityteam/settings"
+    "github.com/asecurityteam/settings/v2"
 )
 
 func main() {
@@ -47,16 +33,13 @@ func main() {
 }
 ```
 
-<a id="markdown-status" name="status"></a>
 ## Status
 
 This project is in incubation which means we are not yet operating this tool in
 production and the interfaces are subject to change.
 
-<a id="markdown-contributing" name="contributing"></a>
 ## Contributing
 
-<a id="markdown-building-and-testing" name="building-and-testing"></a>
 ### Building And Testing
 
 We publish a docker image called [SDCLI](https://github.com/asecurityteam/sdcli) that
@@ -84,12 +67,10 @@ the Makefile:
 
     Report the combined coverage for unit and integration tests
 
-<a id="markdown-license" name="license"></a>
 ### License
 
 This project is licensed under Apache 2.0. See LICENSE.txt for details.
 
-<a id="markdown-contributing-agreement" name="contributing-agreement"></a>
 ### Contributing Agreement
 
 Atlassian requires signing a contributor's agreement before we can accept a patch. If
