@@ -1,7 +1,5 @@
 # component-stat - Settings component for generating a metrics client
 [![GoDoc](https://godoc.org/github.com/asecurityteam/component-stat?status.svg)](https://godoc.org/github.com/asecurityteam/component-stat)
-[![Build Status](https://travis-ci.com/asecurityteam/component-stat.png?branch=master)](https://travis-ci.com/asecurityteam/component-stat)
-[![codecov.io](https://codecov.io/github/asecurityteam/component-stat/coverage.svg?branch=master)](https://codecov.io/github/asecurityteam/component-stat?branch=master)
 
 <!-- TOC -->autoauto- [component-stat - Settings component for generating a metrics client](#component-stat---settings-component-for-generating-a-metrics-client)auto    - [Overview](#overview)auto    - [Quick Start](#quick-start)auto    - [Status](#status)auto    - [Contributing](#contributing)auto        - [Building And Testing](#building-and-testing)auto        - [License](#license)auto        - [Contributing Agreement](#contributing-agreement)autoauto<!-- /TOC -->
 
