@@ -1,6 +1,6 @@
 module github.com/asecurityteam/component-stat
 
-go 1.22
+go 1.23.0
 
 toolchain go1.24.3
 
@@ -17,6 +17,6 @@ require (
 	github.com/rs/cors v1.11.0 // indirect
 	github.com/rs/xhandler v0.0.0-20170707052532-1eb70cf1520d // indirect
 	github.com/spf13/cast v1.8.0 // indirect
-	golang.org/x/net v0.23.0 // indirect
+	golang.org/x/net v0.40.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
