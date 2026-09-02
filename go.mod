@@ -1,8 +1,6 @@
 module github.com/asecurityteam/component-stat
 
-go 1.23.0
-
-toolchain go1.24.3
+go 1.27.1
 
 require (
 	github.com/asecurityteam/settings/v2 v2.0.3
